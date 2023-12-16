@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  keycloak:
+    image: jboss/keycloak:14.0.0
+    container_name: keycloak-v14
+    ports:
+      - 4000:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: password
+      # DB設定
+      DB_VENDOR: mysql
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER: db-user
+      DB_PASSWORD: password
+
+networks:
+  default:
+    name: keycloak-network
+    external: true
