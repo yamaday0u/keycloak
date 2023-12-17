@@ -13,7 +13,6 @@ services:
       # DB設定
       KC_DB: mysql
       KC_DB_URL: jdbc:mysql://keycloak-mysql:3306/keycloak
-      KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: db-user
       KC_DB_PASSWORD: password
     command: start-dev
