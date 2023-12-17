@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  keycloak:
+    image: keycloak/keycloak:22.0.3
+    container_name: keycloak-v22
+    ports:
+      - 4000:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_HTTP_RELATIVE_PATH: /auth
+      # DB設定
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://keycloak-mysql:3306/keycloak
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: db-user
+      KC_DB_PASSWORD: password
+    command: start-dev
+
+networks:
+  default:
+    name: keycloak-network
+    external: true
