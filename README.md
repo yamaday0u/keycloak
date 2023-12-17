@@ -12,7 +12,7 @@ docker network create keycloak-network
 ```
 
 ## v14のkeycloakを起動する
-ローカルでdocker imageを作成する
+### ローカルでdocker imageを作成する
 
 参考：
 [Problem running Keycloak on Docker container](https://github.com/docker/for-mac/issues/5310#issuecomment-1150507539)
@@ -39,4 +39,14 @@ git checkout 14.0.0
 Build docker image
 ```
 docker build -t jboss/keycloak:14.0.0 .
+```
+
+### コンテナを起動する
+```
+docker compose up
+```
+
+## v21以降のKeycloakを起動する
+```
+docker compose up
 ```
