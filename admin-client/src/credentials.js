@@ -3,4 +3,4 @@ export const credentials = {
   password: "password",
   grantType: "password",
   clientId: "admin-cli"
-}
+};
