@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@keycloak/keycloak-admin-client": "^24.0.1"
+  }
+}
