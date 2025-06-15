@@ -1,19 +1,36 @@
 services:
+  mysql:
+    image: mysql:8.0.33
+    container_name: keycloak-v21-mysql
+    volumes:
+      - keycloak-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: db-user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
   keycloak:
     image: keycloak/keycloak:21.1.0
     container_name: keycloak-v21
+    depends_on:
+      - mysql
     ports:
       - 4000:8080
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: password
       KC_HTTP_RELATIVE_PATH: /auth
-      # DB設定
       KC_DB: mysql
       KC_DB_URL: jdbc:mysql://keycloak-mysql:3306/keycloak
       KC_DB_USERNAME: db-user
       KC_DB_PASSWORD: password
     command: start-dev
+
+volumes:
+  keycloak-mysql-data:
+    external: true
 
 networks:
   default:

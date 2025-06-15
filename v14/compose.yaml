@@ -1,7 +1,21 @@
 services:
+  mysql:
+    image: mysql:8.0.33
+    container_name: keycloak-v14-mysql
+    volumes:
+      - keycloak-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: db-user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
   keycloak:
     image: jboss/keycloak:14.0.0
     container_name: keycloak-v14
+    depends_on:
+      - mysql
     ports:
       - 4000:8080
     environment:
@@ -13,6 +27,10 @@ services:
       DB_DATABASE: keycloak
       DB_USER: db-user
       DB_PASSWORD: password
+
+volumes:
+  keycloak-mysql-data:
+    external: true
 
 networks:
   default:
