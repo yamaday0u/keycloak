@@ -10,10 +10,10 @@
 # アクセストークン
 @accessToken = your-access-token after Step1
 
-# state
+# state e.g. 1234567890
 @state = your-state-value
 
-# nonce
+# nonce e.g. 1234567890
 @nonce = your-nonce-value
 
 ### =============================================
@@ -24,8 +24,8 @@ GET {{host}}/auth/realms/{{realm}}/protocol/openid-connect/auth
 &response_type=id_token token
 &scope=openid
 &redirect_uri=http://localhost:3000/callback
-&state=abcdefg
-&nonce=1234567890
+&state={{state}}
+&nonce={{nonce}}
 
 ### =============================================
 ### Step2: Request User Info

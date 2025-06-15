@@ -13,10 +13,10 @@
 # 認可コード
 @authorizationCode = your-authorization-code after Step1
 
-# state
+# state e.g. 1234567890
 @state = your-state-value
 
-# nonce
+# nonce e.g. 1234567890
 @nonce = your-nonce-value
 
 
