@@ -11,11 +11,19 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "$${MYSQL_USER}", "-p$${MYSQL_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
   keycloak:
     image: keycloak/keycloak:21.1.0
     container_name: keycloak-v21
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
       - 4000:8080
     environment:
