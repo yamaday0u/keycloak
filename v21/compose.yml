@@ -12,18 +12,13 @@ services:
     ports:
       - 3306:3306
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "$${MYSQL_USER}", "-p$${MYSQL_PASSWORD}"]
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u$${MYSQL_USER}", "-p$${MYSQL_PASSWORD}"]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s
 
   keycloak:
     image: keycloak/keycloak:21.1.0
     container_name: keycloak-v21
-    depends_on:
-      mysql:
-        condition: service_healthy
     ports:
       - 4000:8080
     environment:
@@ -31,10 +26,15 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: password
       KC_HTTP_RELATIVE_PATH: /auth
       KC_DB: mysql
-      KC_DB_URL: jdbc:mysql://keycloak-mysql:3306/keycloak
+      KC_DB_URL_HOST: mysql
+      KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: db-user
       KC_DB_PASSWORD: password
+      TZ: Asia/Tokyo
     command: start-dev
+    depends_on:
+      mysql:
+        condition: service_healthy
 
 volumes:
   keycloak-mysql-data:
